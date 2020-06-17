@@ -1,0 +1,49 @@
+Step 1 Update the libraries
+
+sudo apt-get update
+
+Step 2 Export Cuda path
+
+export PATH=/usr/local/cuda-10.0/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+Step 3 Download Darknet and Yolo
+
+git clone https://github.com/AlexeyAB/darknet
+cd darknet
+wget https://pjreddie.com/media/files/yolov3.weights
+wget https://pjreddie.com/media/files/yolov3-tiny.weights
+
+Step 4 Enable the GPU, We need to Edit the Makefile to enable the GPU, Cuda and Opencv. Let’s edit the Makefile by typing.
+
+sudo vi Makefile
+
+Set the values:
+GPU=1
+CUDNN=1
+OPENCV=1
+and the rest leave it as it is.
+
+Step 5 Compile the Darknet
+make
+
+Last Step to run YOLO using webcamera plugged into Jetson Nano USB.
+
+Detection from Webcam:
+The 0 at the end of the line is the index of the Webcam. So if you have more webcams, you can change the index (with 1, 2, and so on) to use a different webcam.
+
+./darknet detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights -c 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
